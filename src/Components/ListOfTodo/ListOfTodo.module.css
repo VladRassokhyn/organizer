@@ -1,0 +1,23 @@
+.container {
+    display: grid;
+    grid-template-columns: 8fr 1fr 1fr;
+    height: 40px;
+}
+
+.todoFont {
+    height: 24px;
+    display: block;
+    font-size: 20pt;
+    margin-top: 10px;
+}
+
+
+.container:nth-child(2n) {
+    background-color: #ddd;
+}
+
+.fontContainer{
+    height: 40px;
+
+    border-bottom: 1px solid #786d6d;
+}

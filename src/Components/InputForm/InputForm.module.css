@@ -1,0 +1,9 @@
+.inputForm {
+    width: 500px;
+    display: grid;
+    grid-template-columns: 8fr 2fr;
+}
+
+.addButton {
+    width: 100%
+}
