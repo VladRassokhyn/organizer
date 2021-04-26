@@ -1,50 +1,59 @@
 import React from 'react';
-import {Field, Form} from 'react-final-form';
-import {Button, TextField, Grid} from "@material-ui/core";
-import {useDispatch} from "react-redux";
-import {addTodo} from "../lib/actions";
+import {AddTodoForm} from './AddTodoForm';
+import {useSelector} from "../../lib";
+import {SingleTodo} from './SingleTodo';
+import {
+    createStyles, Grid,
+    List,
+    ListSubheader,
+    makeStyles,
+    Theme
+} from '@material-ui/core';
+
+const useStyles = makeStyles((theme: Theme) =>
+    createStyles({
+        root: {
+            width: '100%',
+            maxWidth: 360,
+            backgroundColor: theme.palette.background.paper,
+        },
+        nested: {
+            paddingLeft: theme.spacing(4),
+        },
+    }),
+);
 
 export const TodoListPage = () => {
 
-    const dispatch = useDispatch()
-
-    const onSubmit = (formData:{text: string}) => {
-        dispatch(addTodo(formData.text))
-        console.log(formData)
-    }
+    const classes = useStyles();
+    const todos = useSelector(state => state.todo.todos)
+    const [open, setOpen] = React.useState(true);
 
     return <div>
-        <Form onSubmit={onSubmit}>
-            {props => (
-                <form onSubmit={props.handleSubmit}>
-                    <Grid
-                        container
-                        direction="row"
-                        justify="center"
-                        alignItems="center"
-                    >
-                        <Field name="text">
-                            {props => (
-                                <TextField
-                                    variant="outlined"
-                                    multiline={true}
-                                    style={{width: "60%"}}
-                                    label="Добавить в список"
-                                    {...props.input}
-                                />
-                            )}
-                        </Field>
-
-                        <Button
-                            type="submit"
-                            color="primary"
-                            size="small"
-                            className={''}
-                        >Добавить</Button>
-                    </Grid>
-
-                </form>
-            )}
-        </Form>
+        <AddTodoForm/>
+        <Grid
+            container
+            justify="center"
+            alignItems="center"
+        >
+            <Grid item xs={6}>
+                <List
+                    component="nav"
+                    aria-labelledby="nested-list-subheader"
+                    subheader={
+                        <ListSubheader component="div" id="nested-list-subheader">
+                            Nested List Items
+                        </ListSubheader>
+                    }
+                    className={classes.root}
+                >
+                    {todos.map((todo, index) => {
+                        return <SingleTodo key={index} todo={todo}/>
+                    })}
+                </List>
+            </Grid>
+            <Grid item xs={2}></Grid>
+        </Grid>
     </div>
+
 }

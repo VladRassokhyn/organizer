@@ -1,16 +1,15 @@
 import React from 'react';
 import {Route} from "react-router-dom";
-import {TodoListPage} from "../Components/TodoListPage";
-import {TRoute} from "../types";
+import {TodoListPage} from "../Components/TodoPage/TodoListPage";
 
-export const routes:Array<TRoute> = [
+export const routes = [
     {
         path: "/todo-list",
         component: TodoListPage
     },
 ]
 
-export const Routes:React.FC<TRoute> = (route) => {
+export const Routes = (route) => {
     return <Route
         path={route.path}
         render={props => (

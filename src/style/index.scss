@@ -1,6 +1,21 @@
+@import 'reset.css';
+
 .app-container {
   height: 100vh;
   display: grid;
   grid-template-rows: 50px 1fr;
-  grid-template-columns: 1fr 8fr;
+  grid-template-columns: 1fr 5fr;
 }
+
+textarea {
+  font-size: 16pt !important;
+}
+
+ .makeStyles-root-11 {
+   min-width: 100%;
+   max-width: 100% !important;
+ }
+
+ .todo-list-item {
+   justify-content: center !important;
+ }

@@ -1,6 +1,6 @@
 import React from 'react';
 import clsx from 'clsx';
-import { createStyles, makeStyles, useTheme, Theme } from '@material-ui/core/styles';
+import {createStyles, makeStyles, useTheme, Theme} from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -16,6 +16,8 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import FormatListNumberedIcon from '@material-ui/icons/FormatListNumbered';
+import {Link, Switch} from 'react-router-dom';
+import {routes, Routes} from "../lib/routes";
 
 const drawerWidth = 240;
 
@@ -82,22 +84,15 @@ const useStyles = makeStyles((theme: Theme) =>
     }),
 );
 
-export default const MainContainer: React.FC = () => {
+export const MainContainer: React.FC = () => {
+
     const classes = useStyles();
     const theme = useTheme();
     const [open, setOpen] = React.useState(false);
 
-    const handleDrawerOpen = () => {
-        setOpen(true);
-    };
-
-    const handleDrawerClose = () => {
-        setOpen(false);
-    };
-
     return (
         <div className={classes.root}>
-            <CssBaseline />
+            <CssBaseline/>
             <AppBar
                 position="fixed"
                 className={clsx(classes.appBar, {
@@ -108,16 +103,16 @@ export default const MainContainer: React.FC = () => {
                     <IconButton
                         color="inherit"
                         aria-label="open drawer"
-                        onClick={handleDrawerOpen}
+                        onClick={() => setOpen(true)}
                         edge="start"
                         className={clsx(classes.menuButton, {
                             [classes.hide]: open,
                         })}
                     >
-                        <MenuIcon />
+                        <MenuIcon/>
                     </IconButton>
                     <Typography variant="h6" noWrap>
-                        Mini variant drawer
+                        Location will here
                     </Typography>
                 </Toolbar>
             </AppBar>
@@ -135,24 +130,34 @@ export default const MainContainer: React.FC = () => {
                 }}
             >
                 <div className={classes.toolbar}>
-                    <IconButton onClick={handleDrawerClose}>
-                        {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
+                    <IconButton onClick={() => setOpen(false)}>
+                        {theme.direction === 'rtl' ? <ChevronRightIcon/> : <ChevronLeftIcon/>}
                     </IconButton>
                 </div>
-                <Divider />
+                <Divider/>
                 <List>
                     {['Список дел'].map(text => (
-                        <ListItem button key={text}>
-                            <ListItemIcon><FormatListNumberedIcon/></ListItemIcon>
-                            <ListItemText primary={text} />
-                        </ListItem>
+                        <Link to={'/todo-list'} key={text}>
+                            <ListItem button>
+                                <ListItemIcon>
+                                    <FormatListNumberedIcon/>
+                                </ListItemIcon>
+                                <ListItemText primary={text}/>
+                            </ListItem>
+                        </Link>
                     ))}
                 </List>
-                <Divider />
+                <Divider/>
             </Drawer>
             <main className={classes.content}>
-                <div className={classes.toolbar} />
+                <div className={classes.toolbar}/>
 
+
+                <Switch>
+                    {routes.map((route, i) => (
+                        <Routes key={i} {...route} />
+                    ))}
+                </Switch>
             </main>
         </div>
     );

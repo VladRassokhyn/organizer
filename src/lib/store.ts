@@ -1,10 +1,13 @@
 import {combineReducers, createStore} from "redux";
 import todoReducer from "./todo-reducer";
 
-const reducers = combineReducers({
+const rootReducers = combineReducers({
     todo: todoReducer
 });
 
-let store = createStore(reducers);
+type RootReducersType = typeof rootReducers;
+export type GlobalStateType = ReturnType<RootReducersType>
+
+const store = createStore(rootReducers);
 
 export default store;
