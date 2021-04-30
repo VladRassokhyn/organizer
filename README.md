@@ -1,5 +1,5 @@
 SIMPLE TODO LIST
-https://vladmoskov.github.io/to-do-list/
+https://vladmoskov.github.io/organizer
 Just React. 
 
 Dark-mode implemented with <filter: inverse()> method. 
